@@ -80,7 +80,7 @@ fp32_inference_time = time.time() - start
 
 
 # Reload the model as the bf16 model with AVX512 to compare inference time
-os.environ["ONEDNN_MAX_CPU_ISA"] = "AVX512_BF16"
+os.environ["ONEDNN_MAX_CPU_ISA"] = "AVX512_CORE_BF16"
 tf.config.optimizer.set_experimental_options({'auto_mixed_precision_onednn_bfloat16':True})
 bf16_model_noAmx = tf.keras.models.load_model('models/my_saved_model_fp32')
 
@@ -93,7 +93,7 @@ bf16_noAmx_inference_time = time.time() - start
 
 
 # Reload the model as the bf16 model with AMX to compare inference time
-os.environ["ONEDNN_MAX_CPU_ISA"] = "AMX_BF16"
+os.environ["ONEDNN_MAX_CPU_ISA"] = "AVX512_CORE_AMX"
 tf.config.optimizer.set_experimental_options({'auto_mixed_precision_onednn_bfloat16':True})
 bf16_model_withAmx = tf.keras.models.load_model('models/my_saved_model_fp32')
 
